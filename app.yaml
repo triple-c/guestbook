@@ -1,0 +1,14 @@
+application: kang-ning
+version: 4
+runtime: python
+api_version: 1
+
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /images
+  static_dir: images
+
+- url: /.*
+  script: guestbook.py

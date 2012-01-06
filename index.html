@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>guestbook</title>
+        <link type="text/css" rel="stylesheet" href="stylesheets/guestbook.css">
+    </head>
+    <body>
+        <div id="header">
+            <h1>hello, 
+            <span>
+                {% if user %}
+                    {{ user.nickname }}
+                {% else %}
+                    anonymous person
+                {% endif %}
+            </span>! welcome to <span>guestbook</span>!</h1>
+            <a id="login_link" href="{{ url }}">{{ url_linktext}}</a>
+        </div>
+        <div id="guestbook_form">
+            <form action="/sign" method="post">
+                <textarea id="guestbook_content" name="content" placeholder="i want to say......"></textarea>
+                <input id="guestbook_submit" type="submit" value="paste">
+                by 
+                <span><b>
+                    {% if user %}
+                        {{ user.nickname }}
+                    {% else %}
+                        anonymous person
+                    {% endif %}
+                </b></span>
+            </form>
+        </div>
+        <div id="guestbook_wall">
+            {% for greeting in greetings %}
+                <div class="guestbook_entry">
+                    {% if greeting.author %}
+                        <span><b>{{ greeting.author.nickname }}</b></span> said:
+                    {% else %}
+                        <span>an anonymous person</span> said:
+                    {% endif %}
+                    <blockquote>{{ greeting.content|escape }}</blockquote>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="footer">
+            <p>&copy;guestbook. powered by gae. designed by <a id="intro" href="http://chenjenping.orgfree.com/" target="_blank"><span>chenjenping</span></a>.</p>
+        </div>
+    </body>
+</html>
